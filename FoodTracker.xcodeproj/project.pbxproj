@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB3331781D0B49FE00E505B3 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3331771D0B49FE00E505B3 /* RatingControl.swift */; };
 		FB9027DC1D05BD55002BECEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9027DB1D05BD55002BECEE /* AppDelegate.swift */; };
 		FB9027DE1D05BD55002BECEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9027DD1D05BD55002BECEE /* ViewController.swift */; };
 		FB9027E11D05BD55002BECEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB9027DF1D05BD55002BECEE /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB3331771D0B49FE00E505B3 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		FB9027D81D05BD55002BECEE /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB9027DB1D05BD55002BECEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB9027DD1D05BD55002BECEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				FB9027DB1D05BD55002BECEE /* AppDelegate.swift */,
 				FB9027DD1D05BD55002BECEE /* ViewController.swift */,
 				FB9027DF1D05BD55002BECEE /* Main.storyboard */,
+				FB3331771D0B49FE00E505B3 /* RatingControl.swift */,
 				FB9027E21D05BD55002BECEE /* Assets.xcassets */,
 				FB9027E41D05BD55002BECEE /* LaunchScreen.storyboard */,
 				FB9027E71D05BD55002BECEE /* Info.plist */,
@@ -140,6 +143,9 @@
 		FB9027D01D05BD55002BECEE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					com.apple.gamecenter.Leaderboard,
+				);
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Stephen Gallo";
@@ -199,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB9027DE1D05BD55002BECEE /* ViewController.swift in Sources */,
+				FB3331781D0B49FE00E505B3 /* RatingControl.swift in Sources */,
 				FB9027DC1D05BD55002BECEE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +404,7 @@
 				FB9027F71D05BD55002BECEE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB9027F81D05BD55002BECEE /* Build configuration list for PBXNativeTarget "FoodTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +413,7 @@
 				FB9027FA1D05BD55002BECEE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
