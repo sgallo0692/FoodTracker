@@ -32,9 +32,13 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-BI-1U8" customClass="RatingControl" customModule="FoodTracker" customModuleProvider="target">
+                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-BI-1U8" customClass="RatingControl" customModule="FoodTracker" customModuleProvider="target">
                                             <rect key="frame" x="97" y="37" width="240" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="240" id="JOt-lk-ZCO"/>
+                                                <constraint firstAttribute="height" constant="44" id="lV3-kP-uzF"/>
+                                            </constraints>
                                         </view>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -42,6 +46,7 @@
                                     <outlet property="nameLabel" destination="lRC-g7-enk" id="sqb-wv-zGP"/>
                                     <outlet property="photoImageView" destination="iVK-fI-gZu" id="xyV-Oh-BzH"/>
                                     <outlet property="ratingControl" destination="2cE-BI-1U8" id="dCw-ec-BKA"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="I2f-wm-Mvd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -182,10 +187,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xsZ-6n-RBy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1720" y="587"/>
+            <point key="canvasLocation" x="1724" y="993"/>
         </scene>
     </scenes>
     <resources>
         <image name="defaultPhoto-1" width="150" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="I2f-wm-Mvd"/>
+    </inferredMetricsTieBreakers>
 </document>
