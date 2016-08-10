@@ -15,9 +15,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="center" id="qbw-58-02u" userLabel="Ad View">
+                            <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Opi-Ad-KHG">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                </imageView>
+                            </subviews>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" image="YES" updatesFrequently="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint firstItem="Opi-Ad-KHG" firstAttribute="centerX" secondItem="qbw-58-02u" secondAttribute="centerX" id="0iS-cC-R9u"/>
+                                <constraint firstItem="Opi-Ad-KHG" firstAttribute="top" secondItem="qbw-58-02u" secondAttribute="top" id="F4W-tJ-DLa"/>
+                                <constraint firstAttribute="bottom" secondItem="Opi-Ad-KHG" secondAttribute="bottom" id="Wfe-Q0-RPq"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MealTableViewCell" rowHeight="90" id="9bK-L8-HhW" customClass="MealTableViewCell" customModule="FoodTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="142" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9bK-L8-HhW" id="PMT-zA-1J7">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
@@ -29,7 +46,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-g7-enk" customClass="nameLabel">
                                             <rect key="frame" x="97" y="8" width="495" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-BI-1U8" customClass="RatingControl" customModule="FoodTracker" customModuleProvider="target">
@@ -62,6 +79,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="adView" destination="qbw-58-02u" id="5QF-GO-WXY"/>
+                        <outlet property="bannerAdView" destination="Opi-Ad-KHG" id="4Ea-ho-68E"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IkJ-mE-oRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

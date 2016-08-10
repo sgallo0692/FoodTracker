@@ -8,6 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		FB2CE1491D187471008A9AFA /* MealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2CE1481D187471008A9AFA /* MealViewController.swift */; };
+		FB2CE1661D1C41D3008A9AFA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1531D1C41D3008A9AFA /* AdSupport.framework */; };
+		FB2CE1671D1C41D3008A9AFA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1541D1C41D3008A9AFA /* AudioToolbox.framework */; };
+		FB2CE1681D1C41D3008A9AFA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1551D1C41D3008A9AFA /* AVFoundation.framework */; };
+		FB2CE1691D1C41D3008A9AFA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1561D1C41D3008A9AFA /* CFNetwork.framework */; };
+		FB2CE16A1D1C41D3008A9AFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1571D1C41D3008A9AFA /* CoreGraphics.framework */; };
+		FB2CE16B1D1C41D3008A9AFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1581D1C41D3008A9AFA /* CoreTelephony.framework */; };
+		FB2CE16C1D1C41D3008A9AFA /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1591D1C41D3008A9AFA /* EventKit.framework */; };
+		FB2CE16D1D1C41D3008A9AFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15A1D1C41D3008A9AFA /* Foundation.framework */; };
+		FB2CE16E1D1C41D3008A9AFA /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15B1D1C41D3008A9AFA /* iAd.framework */; };
+		FB2CE16F1D1C41D3008A9AFA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15C1D1C41D3008A9AFA /* MediaPlayer.framework */; };
+		FB2CE1701D1C41D3008A9AFA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15D1D1C41D3008A9AFA /* MessageUI.framework */; };
+		FB2CE1711D1C41D3008A9AFA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15E1D1C41D3008A9AFA /* MobileCoreServices.framework */; };
+		FB2CE1721D1C41D3008A9AFA /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE15F1D1C41D3008A9AFA /* PassKit.framework */; };
+		FB2CE1731D1C41D3008A9AFA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1601D1C41D3008A9AFA /* QuartzCore.framework */; };
+		FB2CE1741D1C41D3008A9AFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1611D1C41D3008A9AFA /* Security.framework */; };
+		FB2CE1751D1C41D3008A9AFA /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1621D1C41D3008A9AFA /* Social.framework */; };
+		FB2CE1761D1C41D3008A9AFA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1631D1C41D3008A9AFA /* StoreKit.framework */; };
+		FB2CE1771D1C41D3008A9AFA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1641D1C41D3008A9AFA /* SystemConfiguration.framework */; };
+		FB2CE1781D1C41D3008A9AFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2CE1651D1C41D3008A9AFA /* UIKit.framework */; };
 		FB3331781D0B49FE00E505B3 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3331771D0B49FE00E505B3 /* RatingControl.swift */; };
 		FB33317A1D11CB1E00E505B3 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3331791D11CB1E00E505B3 /* Meal.swift */; };
 		FB33317B1D11CB1E00E505B3 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3331791D11CB1E00E505B3 /* Meal.swift */; };
@@ -32,7 +51,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16DA84A1408BA04D3F648162 /* Pods-FoodTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodTracker/Pods-FoodTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		52F064839EBD910D9C6E0B5D /* Pods-FoodTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodTracker/Pods-FoodTracker.release.xcconfig"; sourceTree = "<group>"; };
 		FB2CE1481D187471008A9AFA /* MealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
+		FB2CE1531D1C41D3008A9AFA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		FB2CE1541D1C41D3008A9AFA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FB2CE1551D1C41D3008A9AFA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FB2CE1561D1C41D3008A9AFA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FB2CE1571D1C41D3008A9AFA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FB2CE1581D1C41D3008A9AFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		FB2CE1591D1C41D3008A9AFA /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		FB2CE15A1D1C41D3008A9AFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FB2CE15B1D1C41D3008A9AFA /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		FB2CE15C1D1C41D3008A9AFA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		FB2CE15D1D1C41D3008A9AFA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		FB2CE15E1D1C41D3008A9AFA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		FB2CE15F1D1C41D3008A9AFA /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		FB2CE1601D1C41D3008A9AFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FB2CE1611D1C41D3008A9AFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FB2CE1621D1C41D3008A9AFA /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		FB2CE1631D1C41D3008A9AFA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FB2CE1641D1C41D3008A9AFA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FB2CE1651D1C41D3008A9AFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FB3331771D0B49FE00E505B3 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		FB3331791D11CB1E00E505B3 /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		FB9027D81D05BD55002BECEE /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +94,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2CE1751D1C41D3008A9AFA /* Social.framework in Frameworks */,
+				FB2CE1661D1C41D3008A9AFA /* AdSupport.framework in Frameworks */,
+				FB2CE1671D1C41D3008A9AFA /* AudioToolbox.framework in Frameworks */,
+				FB2CE1681D1C41D3008A9AFA /* AVFoundation.framework in Frameworks */,
+				FB2CE1691D1C41D3008A9AFA /* CFNetwork.framework in Frameworks */,
+				FB2CE16A1D1C41D3008A9AFA /* CoreGraphics.framework in Frameworks */,
+				FB2CE16B1D1C41D3008A9AFA /* CoreTelephony.framework in Frameworks */,
+				FB2CE16C1D1C41D3008A9AFA /* EventKit.framework in Frameworks */,
+				FB2CE16D1D1C41D3008A9AFA /* Foundation.framework in Frameworks */,
+				FB2CE16E1D1C41D3008A9AFA /* iAd.framework in Frameworks */,
+				FB2CE16F1D1C41D3008A9AFA /* MediaPlayer.framework in Frameworks */,
+				FB2CE1701D1C41D3008A9AFA /* MessageUI.framework in Frameworks */,
+				FB2CE1711D1C41D3008A9AFA /* MobileCoreServices.framework in Frameworks */,
+				FB2CE1721D1C41D3008A9AFA /* PassKit.framework in Frameworks */,
+				FB2CE1731D1C41D3008A9AFA /* QuartzCore.framework in Frameworks */,
+				FB2CE1741D1C41D3008A9AFA /* Security.framework in Frameworks */,
+				FB2CE1761D1C41D3008A9AFA /* StoreKit.framework in Frameworks */,
+				FB2CE1771D1C41D3008A9AFA /* SystemConfiguration.framework in Frameworks */,
+				FB2CE1781D1C41D3008A9AFA /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,12 +126,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30EEA2D732CD7D20DDA2B843 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				16DA84A1408BA04D3F648162 /* Pods-FoodTracker.debug.xcconfig */,
+				52F064839EBD910D9C6E0B5D /* Pods-FoodTracker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB2CE17A1D1C6750008A9AFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB2CE1531D1C41D3008A9AFA /* AdSupport.framework */,
+				FB2CE1541D1C41D3008A9AFA /* AudioToolbox.framework */,
+				FB2CE1551D1C41D3008A9AFA /* AVFoundation.framework */,
+				FB2CE1561D1C41D3008A9AFA /* CFNetwork.framework */,
+				FB2CE1571D1C41D3008A9AFA /* CoreGraphics.framework */,
+				FB2CE1581D1C41D3008A9AFA /* CoreTelephony.framework */,
+				FB2CE1591D1C41D3008A9AFA /* EventKit.framework */,
+				FB2CE15A1D1C41D3008A9AFA /* Foundation.framework */,
+				FB2CE15B1D1C41D3008A9AFA /* iAd.framework */,
+				FB2CE15C1D1C41D3008A9AFA /* MediaPlayer.framework */,
+				FB2CE15D1D1C41D3008A9AFA /* MessageUI.framework */,
+				FB2CE15E1D1C41D3008A9AFA /* MobileCoreServices.framework */,
+				FB2CE15F1D1C41D3008A9AFA /* PassKit.framework */,
+				FB2CE1601D1C41D3008A9AFA /* QuartzCore.framework */,
+				FB2CE1611D1C41D3008A9AFA /* Security.framework */,
+				FB2CE1621D1C41D3008A9AFA /* Social.framework */,
+				FB2CE1631D1C41D3008A9AFA /* StoreKit.framework */,
+				FB2CE1641D1C41D3008A9AFA /* SystemConfiguration.framework */,
+				FB2CE1651D1C41D3008A9AFA /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FB9027CF1D05BD55002BECEE = {
 			isa = PBXGroup;
 			children = (
 				FB9027DA1D05BD55002BECEE /* FoodTracker */,
 				FB9027EF1D05BD55002BECEE /* FoodTrackerTests */,
 				FB9027D91D05BD55002BECEE /* Products */,
+				FB2CE17A1D1C6750008A9AFA /* Frameworks */,
+				30EEA2D732CD7D20DDA2B843 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,9 +215,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB9027F51D05BD55002BECEE /* Build configuration list for PBXNativeTarget "FoodTracker" */;
 			buildPhases = (
+				D1BBA6A9EA37B3CF42F85B5B /* [CP] Check Pods Manifest.lock */,
 				FB9027D41D05BD55002BECEE /* Sources */,
 				FB9027D51D05BD55002BECEE /* Frameworks */,
 				FB9027D61D05BD55002BECEE /* Resources */,
+				BDD1527D0B6A4B780219AD2D /* [CP] Embed Pods Frameworks */,
+				419ABECA6AD640E24CFB85B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,9 +235,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB9027F81D05BD55002BECEE /* Build configuration list for PBXNativeTarget "FoodTrackerTests" */;
 			buildPhases = (
+				B5957ACD84FE673225A74014 /* [CP] Check Pods Manifest.lock */,
 				FB9027E81D05BD55002BECEE /* Sources */,
 				FB9027E91D05BD55002BECEE /* Frameworks */,
 				FB9027EA1D05BD55002BECEE /* Resources */,
+				CE5D297E8EE074856668825C /* [CP] Embed Pods Frameworks */,
+				369D737F7F7157433F87C29A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -165,7 +267,7 @@
 				TargetAttributes = {
 					FB9027D71D05BD55002BECEE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 6494572CF2;
+						DevelopmentTeam = HR94J6TSB3;
 					};
 					FB9027EB1D05BD55002BECEE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -211,6 +313,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		369D737F7F7157433F87C29A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodTrackerTests/Pods-FoodTrackerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		419ABECA6AD640E24CFB85B9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodTracker/Pods-FoodTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5957ACD84FE673225A74014 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BDD1527D0B6A4B780219AD2D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodTracker/Pods-FoodTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE5D297E8EE074856668825C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodTrackerTests/Pods-FoodTrackerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1BBA6A9EA37B3CF42F85B5B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FB9027D41D05BD55002BECEE /* Sources */ = {
@@ -287,8 +482,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -304,9 +501,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -333,8 +534,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -344,8 +547,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -353,29 +560,49 @@
 		};
 		FB9027F61D05BD55002BECEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16DA84A1408BA04D3F648162 /* Pods-FoodTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/AppNexusSDK\"",
+				);
 				INFOPLIST_FILE = FoodTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.FoodTracker;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppNexusSDK",
+					"$(SRCROOT)",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "sgallo-mobile-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 			};
 			name = Debug;
 		};
 		FB9027F71D05BD55002BECEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52F064839EBD910D9C6E0B5D /* Pods-FoodTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FoodTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.FoodTracker;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppNexusSDK",
+					"$(SRCROOT)",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "sgallo-mobile-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 			};
 			name = Release;
 		};

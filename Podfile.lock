@@ -1,0 +1,14 @@
+PODS:
+  - AppNexusSDK (3.0-alpha1):
+    - AppNexusSDK/AppNexusSDK (= 3.0-alpha1)
+  - AppNexusSDK/AppNexusSDK (3.0-alpha1)
+
+DEPENDENCIES:
+  - AppNexusSDK (= 3.0-alpha1)
+
+SPEC CHECKSUMS:
+  AppNexusSDK: 20aa373b715ef966a57212edad549f7a7b5d6788
+
+PODFILE CHECKSUM: bbe1e389a2f6984d2cafc49041478f149b1948e8
+
+COCOAPODS: 1.0.1

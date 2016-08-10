@@ -19,6 +19,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         nameTextField.delegate = self
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

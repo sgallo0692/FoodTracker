@@ -1,0 +1,7 @@
+platform :ios, '9.0'
+
+use_frameworks!
+
+target 'FoodTracker' do
+    pod 'AppNexusSDK', '3.0-alpha1'
+end

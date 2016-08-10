@@ -8,15 +8,23 @@
 //
 
 import UIKit
+import CoreLocation
+import AppNexusSDK
 
 class MealTableViewController: UITableViewController {
     
     // MARK: Properties
-    
+    @IBOutlet weak var adView: UIView!
+    @IBOutlet weak var bannerAdView: UIImageView!
     var meals = [Meal]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refreshControl = UIRefreshControl.init()
+        self.refreshControl?.backgroundColor = UIColor .purpleColor()
+        self.refreshControl?.tintColor = UIColor .whiteColor()
+        //self.refreshControl? .addTarget(self, action:@IBOutlet(loadSampleMeals), forControlEvents: UIControlEvents.ValueChanged)
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem()
@@ -28,6 +36,20 @@ class MealTableViewController: UITableViewController {
             // Load the sample data.
             loadSampleMeals()
         }
+        
+        //Enable Verbose Logs
+        ANLogManager.setANLogLevel(ANLogLevel.Debug)
+        
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        
+        //let screenHeight = screenSize.width
+        let screenWidth = screenSize.height
+        let bannerAdView = ANBannerAdView(frame: CGRectMake(0, 0, screenWidth, 50), placementId: "2140063", adSize: CGSizeMake(320, 50))
+        bannerAdView.rootViewController = self
+        bannerAdView.autoRefreshInterval = 10
+        bannerAdView.shouldServePublicServiceAnnouncements = true
+        self.view .addSubview(bannerAdView)
+        bannerAdView.loadAd()
     }
 
     

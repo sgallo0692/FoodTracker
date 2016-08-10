@@ -38,6 +38,31 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
         
         checkValidMealName()
+        
+//        // Get the screen size so we can center our 300x50 example ad
+//        var screenRect = CGRect(UIScreen .mainScreen(), bounds)
+//        var centerX = CGFloat(screenRect.size.width / 2) - 150
+//        var centerY = CGFloat(screenRect.size.height / 2) - 25
+//        //CGRect screenRect = [[UIScreen mainScreen], bounds]
+//        //CGFloat centerX = (screenRect.size.width / 2) - 150
+//        //CGFloat centerY = (screenRect.size.height / 2) - 25
+//        
+//        // Set up some sizing variables we'll need when we create our ad view
+//        var rect = CGRectMake(centerX, centerY, 300, 50)
+//        var size = CGSizeMake(300, 50)
+//        //CGRect rect = CGRectMake(centerX, centerY, 300, 50);
+//        //CGSize size = CGSizeMake(300, 50);
+//        
+//        // Create the banner ad view and add it as a subview
+        
+        
+//        bannerAdView *banner = ANBannerAdView(adViewWithFrame:rect, placementId:@"1326299", adSize:size];
+//        banner.rootViewController = self;
+//        banner.autoRefreshInterval = 60; // Set to 0 to disable auto-refresh
+//        [self.view addSubview:banner];
+//        
+        // Load an ad!
+        
     }
     
     // MARK: UITextFieldDelegate
