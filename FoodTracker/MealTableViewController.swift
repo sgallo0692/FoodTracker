@@ -22,12 +22,13 @@ class MealTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.refreshControl = UIRefreshControl.init()
-        self.refreshControl?.backgroundColor = UIColor .purpleColor()
-        self.refreshControl?.tintColor = UIColor .whiteColor()
-        //self.refreshControl? .addTarget(self, action:@IBOutlet(loadSampleMeals), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.backgroundColor = UIColor.darkGray
+        self.refreshControl?.tintColor = UIColor.white
+        self.refreshControl? .addTarget(self, action: #selector(MealTableViewController.loadBanner), for: UIControlEvents.valueChanged)
+        //self.refreshControl? .addTarget(self, action:@selector: loadBanner, forControlEvents: UIControlEvents.ValueChanged)
         
         // Use the edit button item provided by the table view controller.
-        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem
         
         // Load any saved meals, otherwise load sample data.
         if let savedMeals = loadMeals() {
@@ -38,20 +39,43 @@ class MealTableViewController: UITableViewController {
         }
         
         //Enable Verbose Logs
-        ANLogManager.setANLogLevel(ANLogLevel.Debug)
+        ANLogManager.setANLogLevel(ANLogLevel.debug)
         
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
-        
-        //let screenHeight = screenSize.width
-        let screenWidth = screenSize.height
-        let bannerAdView = ANBannerAdView(frame: CGRectMake(0, 0, screenWidth, 50), placementId: "2140063", adSize: CGSizeMake(320, 50))
-        bannerAdView.rootViewController = self
-        bannerAdView.autoRefreshInterval = 10
-        bannerAdView.shouldServePublicServiceAnnouncements = true
-        self.view .addSubview(bannerAdView)
-        bannerAdView.loadAd()
+        loadBanner()
     }
-
+    
+    // Function for loading ad
+    func loadBanner() {
+        
+        //Configure and load banner ad view
+        //Initialize bannerAdView object and define frame size, placement id, and ad size
+        let bannerAdView = ANBannerAdView(frame: CGRect(x: 0, y: 0, width: 320, height: 50), placementId: "10029160", adSize: CGSize(width: 320, height: 50))
+        
+        //Enable Verbose Logs
+        ANLogManager.setANLogLevel(ANLogLevel.debug)
+        
+        //Alignment
+        bannerAdView?.contentMode = .scaleAspectFit
+        bannerAdView?.alignment = .center
+        bannerAdView?.rootViewController = self
+        
+        //Ad refresh interval
+        bannerAdView?.autoRefreshInterval = 60
+        
+        //Allow PSAs
+        bannerAdView?.shouldServePublicServiceAnnouncements = true
+        
+        //Load bannerAdView into view
+        self.view .addSubview(bannerAdView!)
+        
+        //uses loadAd function from SDK to render ad in defined webview
+        bannerAdView?.loadAd()
+        refreshControl?.endRefreshing()
+    }
+    
+    func loadInterstitial() {
+        
+    }
     
     func loadSampleMeals() {
         let photo1 = UIImage(named: "meal1")!
@@ -73,18 +97,18 @@ class MealTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meals.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "MealTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! MealTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MealTableViewCell
         
         // Fetches the appropriate meal for the data source layout.
         let meal = meals[indexPath.row]
@@ -98,7 +122,7 @@ class MealTableViewController: UITableViewController {
     
     
      // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
      }
@@ -106,13 +130,13 @@ class MealTableViewController: UITableViewController {
     
     
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             // Delete the row from the data source
-            meals.removeAtIndex(indexPath.row)
+            meals.remove(at: indexPath.row)
             saveMeals()
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
@@ -137,11 +161,11 @@ class MealTableViewController: UITableViewController {
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
-            let mealDetailViewController = segue.destinationViewController as! MealViewController
+            let mealDetailViewController = segue.destination as! MealViewController
             if let selectedMealCell = sender as? MealTableViewCell {
-                let indexPath = tableView.indexPathForCell(selectedMealCell)!
+                let indexPath = tableView.indexPath(for: selectedMealCell)!
                 let selectedMeal = meals[indexPath.row]
                 mealDetailViewController.meal = selectedMeal
             }
@@ -151,18 +175,22 @@ class MealTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? MealViewController, meal = sourceViewController.meal {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        
+    }
+    
+    @IBAction func unwindToMealList(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? MealViewController, let meal = sourceViewController.meal {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing meal.
                 meals[selectedIndexPath.row] = meal
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add a new meal.
-                let newIndexPath = NSIndexPath(forRow: meals.count, inSection: 0)
+                let newIndexPath = IndexPath(row: meals.count, section: 0)
                 meals.append(meal)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+                tableView.insertRows(at: [newIndexPath], with: .bottom)
             }
             // Save the meals.
             saveMeals()
@@ -170,13 +198,13 @@ class MealTableViewController: UITableViewController {
     }
     // MARK: NSCoding
     func saveMeals() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path)
         if !isSuccessfulSave {
             print("Failed to save meals...")
         }
     }
     
     func loadMeals() -> [Meal]? {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Meal.ArchiveURL.path!) as? [Meal]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Meal.ArchiveURL.path) as? [Meal]
     }
 }
