@@ -1,14 +1,17 @@
 PODS:
-  - AppNexusSDK (3.0-alpha1):
-    - AppNexusSDK/AppNexusSDK (= 3.0-alpha1)
-  - AppNexusSDK/AppNexusSDK (3.0-alpha1)
+  - AppNexusSDK (2.13.2):
+    - AppNexusSDK/AppNexusSDK (= 2.13.2)
+  - AppNexusSDK/AppNexusSDK (2.13.2)
+  - AppNexusSDK/GoogleAdapter (2.13.2):
+    - AppNexusSDK/AppNexusSDK (= 2.13.2)
 
 DEPENDENCIES:
-  - AppNexusSDK (= 3.0-alpha1)
+  - AppNexusSDK (~> 2.13)
+  - AppNexusSDK/GoogleAdapter
 
 SPEC CHECKSUMS:
-  AppNexusSDK: 20aa373b715ef966a57212edad549f7a7b5d6788
+  AppNexusSDK: e7c5aaa628434f1398d0ee7921db14ad1e940db5
 
-PODFILE CHECKSUM: bbe1e389a2f6984d2cafc49041478f149b1948e8
+PODFILE CHECKSUM: 9bd8fd0a615e0dc24746c97d80991dd1dcf3fcb2
 
 COCOAPODS: 1.0.1

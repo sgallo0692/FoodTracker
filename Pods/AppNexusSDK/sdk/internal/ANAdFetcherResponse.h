@@ -29,6 +29,4 @@
 
 @property (nonatomic, readwrite, strong) NSString *auctionID;
 
-@property (nonatomic, readwrite, strong) NSArray *impressionUrls; // Array of impression url strings
-
 @end

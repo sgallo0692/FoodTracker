@@ -25,6 +25,4 @@
 @property (nonatomic, readwrite, strong) NSString *resultCB;
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
 
-@property (nonatomic, readwrite, strong) NSArray *impressionUrls;
-
 @end

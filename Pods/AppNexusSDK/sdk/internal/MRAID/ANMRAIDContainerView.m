@@ -38,7 +38,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction) {
 
 @interface ANMRAIDContainerView () <ANAdWebViewControllerMRAIDDelegate, ANMRAIDResizeViewManagerDelegate,
 ANMRAIDCalendarManagerDelegate, ANAdWebViewControllerBrowserDelegate, ANMRAIDExpandViewControllerDelegate,
-ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebViewControllerANJAMDelegate>
+ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebViewControllerANJAMDelegate,
+ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, strong) NSURL *baseURL;
@@ -71,6 +72,8 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 
 @property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
 
+@property (nonatomic, readwrite, assign) BOOL responsiveAd;
+
 @end
 
 @implementation ANMRAIDContainerView
@@ -78,29 +81,33 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL {
-    if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
+    CGSize initialSize = size;
+    BOOL responsiveAd = NO;
+    if (CGSizeEqualToSize(initialSize, CGSizeMake(1, 1))) {
+        responsiveAd = YES;
+        initialSize = ANPortraitScreenBounds().size;
+    }
+    CGRect initialRect = CGRectMake(0, 0, initialSize.width, initialSize.height);
+    
+    if (self = [super initWithFrame:initialRect]) {
         _size = size;
         _baseURL = baseURL;
+        _responsiveAd = responsiveAd;
         
-        _lastKnownCurrentPosition = CGRectMake(0, 0, size.width, size.height);
-        _lastKnownDefaultPosition = CGRectMake(0, 0, size.width, size.height);
+        _lastKnownCurrentPosition = initialRect;
+        _lastKnownDefaultPosition = initialRect;
         
-        self.webViewController = [[ANAdWebViewController alloc] initWithSize:size
+        self.webViewController = [[ANAdWebViewController alloc] initWithSize:initialSize
                                                                         HTML:html
                                                               webViewBaseURL:baseURL];
+
         self.webViewController.mraidDelegate = self;
         self.webViewController.browserDelegate = self;
         self.webViewController.pitbullDelegate = self;
         self.webViewController.anjamDelegate = self;
-        
+        self.webViewController.loadingDelegate = self;
+                
         self.backgroundColor = [UIColor clearColor];
-        
-        UIView *contentView = self.webViewController.contentView;
-        contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:contentView];
-        [contentView an_constrainToSizeOfSuperview];
-        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                            yAttribute:NSLayoutAttributeTop];
     }
     return self;
 }
@@ -108,7 +115,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
     _adViewDelegate = adViewDelegate;
     self.webViewController.adViewDelegate = adViewDelegate;
+    self.webViewController.adViewANJAMDelegate = adViewDelegate;
     self.expandWebViewController.adViewDelegate = adViewDelegate;
+    self.expandWebViewController.adViewANJAMDelegate = adViewDelegate;
     if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
         id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)adViewDelegate;
         [interstitialDelegate adShouldSetOrientationProperties:self.orientationProperties];
@@ -168,6 +177,10 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        if (!CGAffineTransformIsIdentity(self.transform)) {
+            // In the case of a magnified webview, need to pass the non-magnified size to the webview
+            position.size = [self an_originalFrame].size;
+        }
         self.lastKnownDefaultPosition = position;
         return position;
     } else {
@@ -185,6 +198,10 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        if (!CGAffineTransformIsIdentity(self.transform)) {
+            // In the case of a magnified webview, need to pass the non-magnified size to the webview
+            position.size = [contentView an_originalFrame].size;
+        }
         self.lastKnownCurrentPosition = position;
         return position;
     } else {
@@ -226,6 +243,8 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         customConfig.scrollingEnabled = YES;
         customConfig.navigationTriggersDefaultBrowser = NO;
         customConfig.initialMRAIDState = ANMRAIDStateExpanded;
+        customConfig.calloutsEnabled = YES;
+        customConfig.userSelectionEnabled = YES;
         self.expandWebViewController = [[ANAdWebViewController alloc] initWithSize:[ANMRAIDUtil screenSize]
                                                                                URL:expandProperties.URL
                                                                     webViewBaseURL:self.baseURL
@@ -642,6 +661,11 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         self.clickOverlay.alpha = 0.0;
     }
     
+    if (!CGAffineTransformIsIdentity(self.transform)) {
+        // In the case that ANMRAIDContainerView is magnified it is necessary to invert this magnification for the click overlay
+        self.clickOverlay.transform = CGAffineTransformInvert(self.transform);
+    }
+
     self.clickOverlay.hidden = NO;
     
     [UIView animateWithDuration:0.5
@@ -743,6 +767,28 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 - (void)handleANJAMURL:(NSURL *)URL {
     [ANANJAMImplementation handleURL:URL
                withWebViewController:self.webViewController];
+}
+
+#pragma mark - ANAdWebViewControllerLoadingDelegate
+
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
+    if (controller == self.webViewController) {
+        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+        // before the call to [ANAdDelegate adDidReceiveAd]
+        self.webViewController.contentView.hidden = YES;
+        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+                                                           atIndex:0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            UIView *contentView = self.webViewController.contentView;
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:contentView];
+            self.webViewController.contentView.hidden = NO;
+            [contentView an_constrainToSizeOfSuperview];
+            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                yAttribute:NSLayoutAttributeTop];
+            [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+        });
+    }
 }
 
 @end

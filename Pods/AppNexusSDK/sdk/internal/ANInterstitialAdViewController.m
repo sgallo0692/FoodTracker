@@ -21,23 +21,16 @@
 #import "UIWebView+ANCategory.h"
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
-#import "ANCircularAnimationView.h"
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANMRAIDContainerView.h"
 
-@interface ANInterstitialAdViewController ()<ANCircularAnimationViewDelegate>
+@interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
 @property (nonatomic, readwrite, strong) NSDate *timerStartDate;
 @property (nonatomic, readwrite, assign) BOOL viewed;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
-@property (nonatomic, strong) ANCircularAnimationView *circularAnimationView;
-
-@property (nonatomic, readwrite, assign) NSUInteger viewabilityValue;
-@property (nonatomic, readwrite, assign) NSUInteger targetViewabilityValue;
-@property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
-@property (nonatomic, readwrite, assign) BOOL impressionHasBeenTracked;
-
+@property (nonatomic, readwrite, assign) BOOL responsiveAd;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -56,42 +49,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.backgroundColor) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
+    self.progressView.hidden = YES;
+    self.closeButton.hidden = YES;
     if (self.contentView && !self.contentView.superview) {
         [self.view addSubview:self.contentView];
+        [self.view insertSubview:self.contentView
+                    belowSubview:self.progressView];
         [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
                                                  yAttribute:NSLayoutAttributeCenterY];
     }
     [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
 }
 
-- (void)setupCircularView {
-    CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_VIEW_SIZE;
-    [self.circularAnimationView removeFromSuperview];
-    self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
-    self.circularAnimationView.delegate = self;
-    self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.circularAnimationView];
-    [self.view bringSubviewToFront:self.circularAnimationView];
-    [self.circularAnimationView an_constrainWithSize:closeButtonSize];
-    [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
-                                                       yAttribute:NSLayoutAttributeTop
-                                                          offsetX:-17.0
-                                                          offsetY:17.0];
-    float skipOffSet = [self.delegate closeDelayForController];
-    self.circularAnimationView.skipOffset = skipOffSet;
-}
-
 - (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
     if (useCustomClose) {
-        // MRAID custom close
-        self.closeButton.hidden = NO;
-        [self.circularAnimationView removeFromSuperview];
-    } else {
-        self.closeButton.hidden = YES;
-        [self setupCircularView];
+        [self.closeButton setImage:nil
+                          forState:UIControlStateNormal];
+        return;
     }
+    BOOL atLeastiOS7 = [self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)];
+    NSString *closeboxImageName = @"interstitial_flat_closebox";
+    if (!atLeastiOS7) {
+        closeboxImageName = @"interstitial_closebox";
+    }
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(closeboxImageName, @"png")];
+    [self.closeButton setImage:closeboxImage
+                      forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,15 +87,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.viewed) {
-        [self setupViewabilityTracker];
-    }
     if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
         [self startCountdownTimer];
+        self.viewed = YES;
     } else {
         [self stopCountdownTimer];
     }
-    self.viewed = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -125,16 +107,27 @@
 }
 
 - (void)startCountdownTimer {
+    self.progressView.hidden = NO;
+    self.closeButton.hidden = YES;
     self.timerStartDate = [NSDate date];
     self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
 }
 
 - (void)stopCountdownTimer {
 	[self.progressTimer invalidate];
+    self.progressView.hidden = YES;
+    self.closeButton.hidden = NO;
 }
 
 - (void)progressTimerDidFire:(NSTimer *)timer {
-    [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
+	NSDate *timeNow = [NSDate date];
+	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
+    NSTimeInterval closeDelay = [self.delegate closeDelayForController];
+	[self.progressView setProgress:(timeShown / closeDelay)];
+    
+	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
+        [self stopCountdownTimer];
+	}
 }
 
 - (void)setContentView:(UIView *)contentView {
@@ -147,14 +140,25 @@
         
         [_contentView removeFromSuperview];
         _contentView = contentView;
-
-        [self.view addSubview:_contentView];
+        
         [self.view insertSubview:_contentView
-                    belowSubview:self.circularAnimationView];
+                    belowSubview:self.progressView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_contentView an_constrainWithFrameSize];
-        [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                             yAttribute:NSLayoutAttributeCenterY];
+        if ([_contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            if (((ANMRAIDContainerView *) _contentView).isResponsiveAd) {
+                self.responsiveAd = YES;
+            }
+        }
+        
+        if (self.responsiveAd) {
+            [_contentView an_constrainToSizeOfSuperview];
+            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                 yAttribute:NSLayoutAttributeTop];
+        } else {
+            [_contentView an_constrainWithFrameSize];
+            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                                 yAttribute:NSLayoutAttributeCenterY];
+        }
     }
 }
 
@@ -164,7 +168,9 @@
 }
 
 - (IBAction)closeAction:(id)sender {
-    // This method is intended to fire only for MRAID custom close
+    if ([self.progressTimer an_isScheduled]) {
+        return;
+    }
     self.dismissing = YES;
 	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
@@ -178,7 +184,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return self.responsiveAd;
 }
 
 #if __IPHONE_9_0
@@ -199,6 +205,10 @@
                     return UIInterfaceOrientationMaskAll;
             }
         }
+    }
+    
+    if (self.responsiveAd) {
+        return UIInterfaceOrientationMaskAll;
     }
 
     switch (self.orientation) {
@@ -275,62 +285,17 @@
         }
     }
 }
-    
-#pragma ANCircularAnimationView Delegates
-- (void)stopTimerForHTMLInterstitial{
-    [self stopCountdownTimer];
-}
-    
-- (void)closeButtonClicked{
-    if ([self.progressTimer an_isScheduled]) {
-        return;
-    }
-    self.dismissing = YES;
-    [self.delegate interstitialAdViewControllerShouldDismiss:self];
-}
-    
-#pragma mark - Impression Tracking
-
-- (void)setupViewabilityTracker {
-    __weak ANInterstitialAdViewController *weakSelf = self;
-    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
-                                                                  / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
-    self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                                 block:^ {
-                                                                     ANInterstitialAdViewController *strongSelf = weakSelf;
-                                                                     [strongSelf checkViewability];
-                                                                 }
-                                                               repeats:YES];
-}
-
-- (void)checkViewability {
-    self.viewabilityValue = (self.viewabilityValue << 1 | [self.view an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
-    BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
-    if (isIABViewable) {
-        [self trackImpression];
-    }
-}
-
-- (void)trackImpression {
-    if (!self.impressionHasBeenTracked) {
-        ANLogDebug(@"Firing impression trackers");
-        [self fireImpTrackers];
-        [self.viewabilityTimer invalidate];
-        self.impressionHasBeenTracked = YES;
-    }
-}
-
-- (void)fireImpTrackers {
-    if (self.impressionUrls) {
-        NSMutableArray *impressionURLArray = [[NSMutableArray alloc] init];
-        [self.impressionUrls enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
-            NSURL *URL = [NSURL URLWithString:urlString];
-            if (URL) {
-                [impressionURLArray addObject:URL];
-            }
-        }];
-        [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impressionURLArray];
+ 
+// Allow WKWebView to present WKActionSheet
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    if (self.presentedViewController) {
+        [self.presentedViewController presentViewController:viewControllerToPresent
+                                                   animated:flag
+                                                 completion:completion];
+    } else {
+        [super presentViewController:viewControllerToPresent
+                            animated:flag
+                          completion:completion];
     }
 }
 

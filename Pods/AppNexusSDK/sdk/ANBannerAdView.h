@@ -97,6 +97,12 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite, assign) CGSize adSize;
 
 /**
+ The set of allowed ad sizes for the banner ad.
+ The set should contain CGSize values wrapped as NSValue objects.
+ */
+@property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
+
+/**
  Autorefresh interval.  Default interval is 30.0; the minimum
  allowed is 15.0.  To disable autorefresh, set to 0.
  */
@@ -128,6 +134,15 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  returned from the ad server. See the ANBannerViewAdAlignment enumeration above for accepted values.
  */
 @property (nonatomic, readwrite, assign) ANBannerViewAdAlignment alignment;
+
+/**
+ Set whether ads will resize to fit the container width. This
+ feature will cause ad creatives that are smaller than the view
+ size to 'stretch' to the current size. This may cause image
+ quality degradation for the benefit of having an ad occupy the
+ entire ad view. This feature is disabled by default.
+ */
+@property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
 #pragma mark Creating an ad view and loading an ad
 

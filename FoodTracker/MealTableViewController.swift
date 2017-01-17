@@ -47,6 +47,8 @@ class MealTableViewController: UITableViewController {
     // Function for loading ad
     func loadBanner() {
         
+        ANSDKSettings.sharedInstance().httpsEnabled = true
+        
         //Configure and load banner ad view
         //Initialize bannerAdView object and define frame size, placement id, and ad size
         let bannerAdView = ANBannerAdView(frame: CGRect(x: 0, y: 0, width: 320, height: 50), placementId: "10029160", adSize: CGSize(width: 320, height: 50))
@@ -60,10 +62,10 @@ class MealTableViewController: UITableViewController {
         bannerAdView?.rootViewController = self
         
         //Ad refresh interval
-        bannerAdView?.autoRefreshInterval = 60
+        bannerAdView?.autoRefreshInterval = 15
         
         //Allow PSAs
-        bannerAdView?.shouldServePublicServiceAnnouncements = true
+        bannerAdView?.shouldServePublicServiceAnnouncements = false
         
         //Load bannerAdView into view
         self.view .addSubview(bannerAdView!)

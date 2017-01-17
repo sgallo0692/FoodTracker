@@ -18,8 +18,6 @@
 #import "ANNativeAdTargetingProtocol.h"
 #import "ANAdFetcherResponse.h"
 
-static NSString *const kANNativeAdFetcherDefaultBaseUrlString = @"http://mediation.adnxs.com/mob";
-
 @protocol ANNativeAdFetcherDelegate;
 
 @interface ANNativeAdFetcher : NSObject
@@ -36,5 +34,6 @@ static NSString *const kANNativeAdFetcherDefaultBaseUrlString = @"http://mediati
 @protocol ANNativeAdFetcherDelegate <ANNativeAdTargetingProtocol>
 
 - (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 @end

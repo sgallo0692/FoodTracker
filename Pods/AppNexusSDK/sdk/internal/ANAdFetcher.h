@@ -35,7 +35,6 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> delegate;
 @property (nonatomic, readonly, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, assign) ANMobileEndpoint endpoint;
 
 - (void)stopAd;
 - (void)requestAd;
@@ -57,5 +56,6 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSArray *)extraParameters; // An array of NSString
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 @end

@@ -75,6 +75,7 @@ NSString *ANUDID() {
         
         if (advertisingIdentifier) {
             udidComponent = advertisingIdentifier;
+            ANLogInfo(@"IDFA = %@", advertisingIdentifier);
         } else {
             ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
         }
@@ -245,7 +246,7 @@ NSNumber *ANiTunesIDForURL(NSURL *URL) {
 }
 
 BOOL ANCanPresentFromViewController(UIViewController *viewController) {
-    return viewController.view.window != nil && viewController.presentedViewController == nil ? YES : NO;
+    return viewController.view.window != nil ? YES : NO;
 }
 
 @implementation ANGlobal

@@ -27,6 +27,8 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 
+#import "ANSDKSettings+PrivateMethods.h"
+
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
@@ -44,8 +46,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
-@property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
-@property (nonatomic, readwrite, strong) NSString *ANBaseURL;
 
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
@@ -58,30 +58,10 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 	if (self = [super init])
     {
 		self.data = [NSMutableData data];
-        self.ANMobileHostname = AN_MOBILE_HOSTNAME;
-        self.ANBaseURL = AN_BASE_URL;
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
 	return self;
-}
-
-- (void)setEndpoint:(ANMobileEndpoint)endpoint {
-    _endpoint = endpoint;
-    switch (endpoint) {
-        case ANMobileEndpointClientTesting:
-            self.ANMobileHostname = AN_MOBILE_HOSTNAME_CTEST;
-            self.ANBaseURL = AN_BASE_URL_CTEST;
-            break;
-        case ANMobileEndpointSandbox:
-            self.ANMobileHostname = AN_MOBILE_HOSTNAME_SAND;
-            self.ANBaseURL = AN_BASE_URL_SAND;
-            break;
-        default:
-            self.ANMobileHostname = AN_MOBILE_HOSTNAME;
-            self.ANBaseURL = AN_BASE_URL;
-            break;
-    }
 }
 
 - (void)autoRefreshTimerDidFire:(NSTimer *)timer
@@ -103,17 +83,21 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
         ANLogDebug(@"%@", errorKey);
 		
-        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", self.ANMobileHostname];
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
-                                                                      baseUrlString:baseUrlString];
+                                                                      baseUrlString:[[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
 		
 		if (self.URL != nil)
 		{
             self.request = ANBasicRequestWithURL(self.URL);
-			self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-			
+			self.connection = [[NSURLConnection alloc] initWithRequest:self.request
+                                                              delegate:self
+                                                      startImmediately:NO];
 			if (self.connection != nil)
 			{
+                [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                                           forMode:NSRunLoopCommonModes];
+                [self.connection start];
+                
 				ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
 				
                 if (self.requestShouldBePosted) {
@@ -269,13 +253,15 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
     
     if (self.standardAdView) {
-        self.standardAdView.webViewController.loadingDelegate = nil;
+        self.standardAdView.loadingDelegate = nil;
     }
     
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                                 HTML:standardAd.content
-                                                      webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
-    self.standardAdView.webViewController.loadingDelegate = self;
+                                                      webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+    self.standardAdView.loadingDelegate = self;
+    // Allow ANJAM events to always be passed to the ANAdView 
+    self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {

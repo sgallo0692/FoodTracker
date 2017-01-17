@@ -53,6 +53,7 @@
 @property (nonatomic, readonly, strong) ANAdWebViewControllerConfiguration *configuration;
 
 @property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
+@property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewANJAMDelegate;
 
 @property (nonatomic, readwrite, weak) id<ANAdWebViewControllerLoadingDelegate> loadingDelegate;
 @property (nonatomic, readwrite, weak) id<ANAdWebViewControllerBrowserDelegate> browserDelegate;
@@ -78,6 +79,8 @@
 @property (nonatomic, readwrite, assign) BOOL scrollingEnabled;
 @property (nonatomic, readwrite, assign) BOOL navigationTriggersDefaultBrowser;
 @property (nonatomic, readwrite, assign) ANMRAIDState initialMRAIDState;
+@property (nonatomic, readwrite, assign) BOOL calloutsEnabled;
+@property (nonatomic, readwrite, assign) BOOL userSelectionEnabled;
 
 @end
 
